@@ -7,7 +7,13 @@ global.TaskVoter = require("./api/models/taskVoter");
 const routes = require("./api/routes/taskRoutes");
 const fileUpload = require("express-fileupload");
 
-mongoose.connect("mongodb+srv://bkk2022:pass1234@atlascluster.tlfcs4f.mongodb.net/?retryWrites=true&w=majority", { useNewUrlParser: true });
+//mongoose.connect("mongodb+srv://bkk2022:pass1234@atlascluster.tlfcs4f.mongodb.net/?retryWrites=true&w=majority", { useNewUrlParser: true });
+
+mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://bkk2022:pass1234@atlascluster.tlfcs4f.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true })
+        .then(connect => console.log('connected to mongodb..'))
+        .catch(e => console.log('could not connect to mongodb', e))
+
+module.exports = {mongoose}
 
 const port = process.env.PORT || 3000;
 const app = express();
